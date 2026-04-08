@@ -92,17 +92,27 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (cart?.id && hasItems && !trackedCheckout.current) {
       trackedCheckout.current = true
-      trackBeginCheckout(cart.id, cart.total, currency)
-      trackMetaEvent('InitiateCheckout', {
+      const itemCount = (cart.items || []).reduce((sum: number, item: any) => sum + item.quantity, 0)
+      const contentIds = (cart.items || []).map((item: any) => item.variant_id).filter(Boolean)
+      const contents = (cart.items || []).map((item: any) => ({
+        id: item.variant_id,
+        quantity: item.quantity,
+        item_price: toMetaCurrencyValue(item.unit_price),
+      }))
+
+      const eventId = trackMetaEvent('InitiateCheckout', {
         value: toMetaCurrencyValue(cart.total),
         currency,
-        content_ids: (cart.items || []).map((item: any) => item.variant_id).filter(Boolean),
-        contents: (cart.items || []).map((item: any) => ({
-          id: item.variant_id,
-          quantity: item.quantity,
-          item_price: toMetaCurrencyValue(item.unit_price),
-        })),
-        num_items: (cart.items || []).reduce((sum: number, item: any) => sum + item.quantity, 0),
+        content_ids: contentIds,
+        contents,
+        num_items: itemCount,
+      })
+
+      trackBeginCheckout(cart.id, toMetaCurrencyValue(cart.total), currency, {
+        eventId,
+        itemCount,
+        contentIds,
+        contents,
       })
     }
   }, [cart?.id, hasItems, cart?.total, currency, cart?.items])

@@ -61,16 +61,35 @@ function OrderSuccessContent() {
   const orderId = searchParams.get('order')
 
   const analyticsTracked = useRef(false)
-  const metaTracked = useRef(false)
   const [purchaseDetails, setPurchaseDetails] = useState<PurchaseTrackingDetails | null>(null)
   const [purchaseDetailsLoaded, setPurchaseDetailsLoaded] = useState(false)
 
   useEffect(() => {
-    if (orderId && !analyticsTracked.current) {
-      analyticsTracked.current = true
-      trackPurchase(orderId)
+    if (!orderId || !purchaseDetailsLoaded || analyticsTracked.current) {
+      return
     }
-  }, [orderId])
+
+    analyticsTracked.current = true
+
+    const eventId = trackMetaEvent('Purchase', {
+      value: purchaseDetails?.value,
+      currency: purchaseDetails?.currency,
+      content_ids: purchaseDetails?.contentIds?.length ? purchaseDetails.contentIds : [orderId],
+      content_type: 'product',
+      contents: purchaseDetails?.contents,
+      num_items: purchaseDetails?.numItems,
+      order_id: orderId,
+    })
+
+    trackPurchase(orderId, {
+      eventId,
+      value: purchaseDetails?.value,
+      currency: purchaseDetails?.currency,
+      itemCount: purchaseDetails?.numItems,
+      contentIds: purchaseDetails?.contentIds,
+      contents: purchaseDetails?.contents,
+    })
+  }, [orderId, purchaseDetails, purchaseDetailsLoaded])
 
   useEffect(() => {
     if (!orderId) {
@@ -108,23 +127,6 @@ function OrderSuccessContent() {
     }
   }, [orderId])
 
-  useEffect(() => {
-    if (!orderId || !purchaseDetailsLoaded || metaTracked.current) {
-      return
-    }
-
-    metaTracked.current = true
-
-    trackMetaEvent('Purchase', {
-      value: purchaseDetails?.value,
-      currency: purchaseDetails?.currency,
-      content_ids: purchaseDetails?.contentIds?.length ? purchaseDetails.contentIds : [orderId],
-      content_type: 'product',
-      contents: purchaseDetails?.contents,
-      num_items: purchaseDetails?.numItems,
-      order_id: orderId,
-    })
-  }, [orderId, purchaseDetails, purchaseDetailsLoaded])
 
   return (
     <div className="container-custom py-section">
