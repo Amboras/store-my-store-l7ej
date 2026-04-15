@@ -4,35 +4,32 @@
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
-    --foreground: 0 0% 10%;
-    --muted: 40 10% 94%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 35 40% 50%;
+    /* ScrubPro — Clean, electric, modern */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 10%;
+    --muted: 210 15% 93%;
+    --muted-foreground: 215 10% 48%;
+    --accent: 195 90% 40%;
     --accent-foreground: 0 0% 100%;
-    --border: 40 10% 88%;
-    --ring: 35 40% 50%;
-    --primary: 0 0% 10%;
+    --border: 210 15% 87%;
+    --ring: 195 90% 40%;
+    --primary: 215 25% 10%;
     --primary-foreground: 0 0% 98%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-
-    /* Brand colors (dynamically injected from Store.metadata.brand) */
-    /* Access in CSS: var(--brand-primary), var(--brand-secondary) */
-    /* Managed by BrandStyleInjector component */
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 40 20% 94%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 35 45% 55%;
+    --background: 215 20% 8%;
+    --foreground: 210 20% 94%;
+    --muted: 215 15% 14%;
+    --muted-foreground: 215 10% 52%;
+    --accent: 195 90% 45%;
     --accent-foreground: 0 0% 100%;
-    --border: 0 0% 16%;
-    --ring: 35 45% 55%;
-    --primary: 40 20% 94%;
-    --primary-foreground: 0 0% 6%;
+    --border: 215 15% 18%;
+    --ring: 195 90% 45%;
+    --primary: 210 20% 94%;
+    --primary-foreground: 215 20% 8%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
   }
@@ -72,17 +69,17 @@
     @apply w-full;
   }
 
-  /* Brand color utilities - uses colors from Store.metadata.brand */
+  /* Brand color utilities */
   .btn-brand-primary {
-    background-color: var(--brand-primary, hsl(var(--primary)));
+    background-color: var(--brand-primary, hsl(195, 90%, 40%));
     color: white;
   }
   .btn-brand-primary:hover {
-    opacity: 0.9;
+    opacity: 0.88;
   }
 
   .text-brand-primary {
-    color: var(--brand-primary, hsl(var(--primary)));
+    color: var(--brand-primary, hsl(195, 90%, 40%));
   }
 
   .text-brand-secondary {
@@ -90,15 +87,26 @@
   }
 
   .border-brand-primary {
-    border-color: var(--brand-primary, hsl(var(--border)));
+    border-color: var(--brand-primary, hsl(195, 90%, 40%));
   }
 
   .bg-brand-primary {
-    background-color: var(--brand-primary, hsl(var(--primary)));
+    background-color: var(--brand-primary, hsl(195, 90%, 40%));
   }
 
   .bg-brand-secondary {
     background-color: var(--brand-secondary, hsl(var(--accent)));
+  }
+
+  /* Scrubpro electric accent */
+  .electric-accent {
+    color: hsl(195, 90%, 40%);
+  }
+  .bg-electric-accent {
+    background-color: hsl(195, 90%, 40%);
+  }
+  .border-electric-accent {
+    border-color: hsl(195, 90%, 40%);
   }
 }
 
@@ -109,7 +117,8 @@ html {
 
 /* Selection color */
 ::selection {
-  @apply bg-accent/20 text-foreground;
+  background-color: hsl(195, 90%, 40%, 0.15);
+  color: hsl(215, 25%, 10%);
 }
 
 /* Focus styles */
@@ -130,5 +139,36 @@ html {
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.65s ease-out forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(195, 90%, 40%, 0.3); }
+  50% { box-shadow: 0 0 0 8px hsl(195, 90%, 40%, 0); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 25s linear infinite;
 }
