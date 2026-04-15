@@ -4,34 +4,38 @@
 
 @layer base {
   :root {
-    /* ScrubPro — Clean, electric, modern */
-    --background: 210 20% 98%;
-    --foreground: 215 25% 10%;
-    --muted: 210 15% 93%;
-    --muted-foreground: 215 10% 48%;
-    --accent: 195 90% 40%;
+    /* ScrubPro — Aqua-electric, clinical-clean */
+    --background: 200 20% 99%;
+    --foreground: 215 30% 9%;
+    --muted: 200 15% 94%;
+    --muted-foreground: 215 10% 46%;
+    --accent: 188 95% 38%;
     --accent-foreground: 0 0% 100%;
-    --border: 210 15% 87%;
-    --ring: 195 90% 40%;
-    --primary: 215 25% 10%;
+    --border: 200 15% 88%;
+    --ring: 188 95% 38%;
+    --primary: 215 30% 9%;
     --primary-foreground: 0 0% 98%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 30% 9%;
   }
 
   .dark {
-    --background: 215 20% 8%;
-    --foreground: 210 20% 94%;
-    --muted: 215 15% 14%;
-    --muted-foreground: 215 10% 52%;
-    --accent: 195 90% 45%;
+    --background: 218 22% 7%;
+    --foreground: 210 20% 95%;
+    --muted: 218 15% 13%;
+    --muted-foreground: 215 10% 50%;
+    --accent: 188 95% 43%;
     --accent-foreground: 0 0% 100%;
-    --border: 215 15% 18%;
-    --ring: 195 90% 45%;
-    --primary: 210 20% 94%;
-    --primary-foreground: 215 20% 8%;
+    --border: 218 15% 17%;
+    --ring: 188 95% 43%;
+    --primary: 210 20% 95%;
+    --primary-foreground: 218 22% 7%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
+    --card: 218 20% 10%;
+    --card-foreground: 210 20% 95%;
   }
 }
 
@@ -71,42 +75,21 @@
 
   /* Brand color utilities */
   .btn-brand-primary {
-    background-color: var(--brand-primary, hsl(195, 90%, 40%));
+    background-color: hsl(188, 95%, 38%);
     color: white;
   }
   .btn-brand-primary:hover {
-    opacity: 0.88;
+    background-color: hsl(188, 95%, 33%);
   }
 
-  .text-brand-primary {
-    color: var(--brand-primary, hsl(195, 90%, 40%));
+  .text-brand {
+    color: hsl(188, 95%, 38%);
   }
-
-  .text-brand-secondary {
-    color: var(--brand-secondary, hsl(var(--accent)));
+  .bg-brand {
+    background-color: hsl(188, 95%, 38%);
   }
-
-  .border-brand-primary {
-    border-color: var(--brand-primary, hsl(195, 90%, 40%));
-  }
-
-  .bg-brand-primary {
-    background-color: var(--brand-primary, hsl(195, 90%, 40%));
-  }
-
-  .bg-brand-secondary {
-    background-color: var(--brand-secondary, hsl(var(--accent)));
-  }
-
-  /* Scrubpro electric accent */
-  .electric-accent {
-    color: hsl(195, 90%, 40%);
-  }
-  .bg-electric-accent {
-    background-color: hsl(195, 90%, 40%);
-  }
-  .border-electric-accent {
-    border-color: hsl(195, 90%, 40%);
+  .border-brand {
+    border-color: hsl(188, 95%, 38%);
   }
 }
 
@@ -117,8 +100,8 @@ html {
 
 /* Selection color */
 ::selection {
-  background-color: hsl(195, 90%, 40%, 0.15);
-  color: hsl(215, 25%, 10%);
+  background-color: hsl(188, 95%, 38%, 0.15);
+  color: hsl(215, 30%, 9%);
 }
 
 /* Focus styles */
@@ -126,43 +109,38 @@ html {
   @apply outline-2 outline-offset-2 outline-ring;
 }
 
-/* Cookie consent animation */
+/* Animations */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in {
   animation: fade-in 0.4s ease-out forwards;
 }
 
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out forwards;
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.65s ease-out forwards;
+@keyframes fade-in-right {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-fade-in-right {
+  animation: fade-in-right 0.7s ease-out 0.2s forwards;
+  opacity: 0;
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 hsl(195, 90%, 40%, 0.3); }
-  50% { box-shadow: 0 0 0 8px hsl(195, 90%, 40%, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 hsl(188, 95%, 38%, 0.35); }
+  50% { box-shadow: 0 0 0 10px hsl(188, 95%, 38%, 0); }
 }
 .animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 2.2s ease-in-out infinite;
 }
 
 @keyframes ticker {
@@ -170,5 +148,32 @@ html {
   100% { transform: translateX(-50%); }
 }
 .animate-ticker {
-  animation: ticker 25s linear infinite;
+  animation: ticker 28s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, hsl(188,95%,38%,0.12) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Slide in for mobile menu */
+@keyframes slide-in-right {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
